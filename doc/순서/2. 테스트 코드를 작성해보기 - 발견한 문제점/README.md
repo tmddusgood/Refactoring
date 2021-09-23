@@ -1,7 +1,7 @@
 [1. 테스트 코드를 작성해보기](https://github.com/tmddusgood/Refactoring/tree/develop/doc/%EC%88%9C%EC%84%9C/1.%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%BD%94%EB%93%9C%EB%A5%BC%20%EC%9E%91%EC%84%B1%ED%95%B4%EB%B3%B4%EA%B8%B0)
 에서 이어지는 글입니다.
 
-##문제점
+## 문제점
 ### Service 테스트인데 Repository를 테스트하고 있다.
 * checkUserProject라는 메소드가 하는 일은 Repository 메소드를 실행한 결과를 리턴하는 것입니다.
     * 인라인 형태로 작성된 것이 단순히 길다는 이유로 메서드 추출을 한 것입니다.
