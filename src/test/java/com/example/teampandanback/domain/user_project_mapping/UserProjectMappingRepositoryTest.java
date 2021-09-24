@@ -31,8 +31,7 @@ public class UserProjectMappingRepositoryTest {
     @DisplayName("유저-프로젝트 매핑이 불일치하면 Exception 반환한다")
     public void findByUserIdAndProjectIdJoinTest(){
         //given
-        userProjectMappingRepository
-                .save(UserProjectMapping.builder()
+        userProjectMappingRepository.save(UserProjectMapping.builder()
                     .userProjectRole(UserProjectRole.OWNER)
                     .user(userRepository.save(User.builder()
                                     .name("강승연")
@@ -41,15 +40,18 @@ public class UserProjectMappingRepositoryTest {
                                     .kakaoId(1234L)
                                     .password("0000")
                                     .build()))
-                    .project(projectRepository.save(Project.builder().title("random project").detail("none").build()))
+                    .project(projectRepository.save(Project.builder()
+                                .title("random project")
+                                .detail("none")
+                                .build()))
                     .build());
 
         //when
         Exception exception = assertThrows(Exception.class,
-                () -> userProjectMappingRepository.findByUserIdAndProjectIdJoin(1L, 2L));
+                () -> userProjectMappingRepository.findByUserIdAndProjectIdOrThrowsException(1L, 2L));
 
         //then
-        assertThat(exception.getCause().getMessage()).isEqualTo("프로젝트에 참가한 사용자가 아닙니다.");
+        assertThat(exception.getCause().getMessage()).isEqualTo("해당 프로젝트에 소속된 유저가 아닙니다.");
     }
 
 }
