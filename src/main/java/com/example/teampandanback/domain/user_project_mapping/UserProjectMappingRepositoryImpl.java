@@ -1,5 +1,6 @@
 package com.example.teampandanback.domain.user_project_mapping;
 
+import com.example.teampandanback.domain.project.Project;
 import com.example.teampandanback.domain.user.User;
 import com.example.teampandanback.dto.project.request.ProjectResponseDto;
 import com.example.teampandanback.dto.project.response.ProjectDetailResponseDto;
@@ -13,7 +14,6 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.teampandanback.domain.note.QNote.note;
 import static com.example.teampandanback.domain.project.QProject.project;
 import static com.example.teampandanback.domain.user.QUser.user;
 import static com.example.teampandanback.domain.user_project_mapping.QUserProjectMapping.userProjectMapping;
@@ -110,7 +110,7 @@ public class UserProjectMappingRepositoryImpl implements UserProjectMappingRepos
 
 
     @Override
-    public UserProjectMapping findByUserIdAndProjectIdJoin(Long userId, Long projectId) {
+    public UserProjectMapping findByUserIdAndProjectIdJoin(Long userId, Long projectId){
         return Optional.ofNullable(queryFactory
                 .select(userProjectMapping)
                 .from(userProjectMapping)
@@ -172,5 +172,16 @@ public class UserProjectMappingRepositoryImpl implements UserProjectMappingRepos
                 .from(userProjectMapping)
                 .where(userProjectMapping.project.projectId.eq(projectId))
                 .fetch();
+    }
+
+
+    @Override
+    public UserProjectMapping findByUserIdAndProjectIdOrThrowsException(Long userId, Long projectId){
+        return Optional.ofNullable(queryFactory
+                .select(userProjectMapping)
+                .from(userProjectMapping)
+                .where(userProjectMapping.user.userId.eq(userId), userProjectMapping.project.projectId.eq(projectId))
+                .fetchFirst())
+                .orElseThrow(() -> new ApiRequestException("해당 프로젝트에 소속된 유저가 아닙니다."));
     }
 }

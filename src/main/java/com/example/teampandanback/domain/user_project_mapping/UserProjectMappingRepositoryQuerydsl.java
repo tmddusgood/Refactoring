@@ -46,4 +46,6 @@ public interface UserProjectMappingRepositoryQuerydsl {
 
     //y 프로젝트에 참여해있는 모든 유저를 호출
     List<User> getUsersByProjectId(Long projectId);
+
+    UserProjectMapping findByUserIdAndProjectIdOrThrowsException(Long userId, Long projectId);
 }
