@@ -13,6 +13,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+//TODO 함수 이름, 기타 리팩토링 필요
 @Getter
 @Entity
 @DynamicUpdate
@@ -94,7 +95,8 @@ public class Note extends Timestamped {
         this.nextId = nextId;
     }
 
-    public void updateStepWhileMoveNote(Step step) {
+    //TODO change name
+    public void updateStep(Step step) {
         this.step = step;
     }
 
@@ -120,5 +122,7 @@ public class Note extends Timestamped {
         this.writing = writing;
     }
 
-    public void setWriterId(Long writerId){this.writerId = writerId;}
+    public void setWriterId(Long writerId) {
+        this.writerId = writerId;
+    }
 }

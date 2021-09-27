@@ -93,7 +93,7 @@ public class NoteTest {
     @Test
     @DisplayName("노트 이동 시 Step 수정하면 값을 업데이트한다.")
     public void updateStepWhileMoveNoteTest() {
-        randomNote.updateStepWhileMoveNote(Step.STORAGE);
+        randomNote.updateStep(Step.STORAGE);
 
         assertThat(randomNote.getStep()).isEqualTo(Step.STORAGE);
     }
